@@ -2,7 +2,7 @@
 
 echo ${JAVA_HOME}
 
-mkdir -P /opt/deployrdownload
+mkdir -p /opt/deployrdownload
 cd /opt/deployrdownload
 wget https://deployr.revolutionanalytics.com/download/bundles/release/DeployR-Open-Linux-${DEPLOYR_VERSION}.tar.gz
 tar -xzf DeployR-Open-Linux-${DEPLOYR_VERSION}.tar.gz
