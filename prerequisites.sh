@@ -20,6 +20,7 @@ tac /opt/RevoMath/RevoMath.sh | sed '/getOption/ {s//getOption --nolicense/; :lo
 chmod +x /opt/RevoMath/RevoMath_nolicense.sh
 echo 1 | /opt/RevoMath/RevoMath_nolicense.sh
 
+cd /opt
 rm -f /opt/RevoMath-${MKL_VERSION}.tar.gz
 rm -rf /opt/RevoMath
 echo "MKL installed."
@@ -30,6 +31,7 @@ wget https://github.com/deployr/deployr-rserve/releases/download/v${RSERVER_VERS
 ln -s /usr/lib64/libicuuc.so.42 /usr/lib64/libicuuc.so 
 ln -s /usr/lib64/libicui18n.so.42 /usr/lib64/libicui18n.so
 R CMD INSTALL deployrRserve_${RSERVER_VERSION}.tar.gz
+rm -f deployrRserve_${RSERVER_VERSION}.tar.gz
 echo "deployrRserve installed."
 
 yum install -y make gcc gcc-gfortran which
