@@ -11,14 +11,17 @@ rm -f RRO-${RRO_VERSION}.${OS_VERSION}.x86_64.rpm
 echo "RRO installed."
 
 #install MKL
+cd /opt
 wget https://mran.revolutionanalytics.com/install/RevoMath-${MKL_VERSION}.tar.gz
 tar -xzf RevoMath-${MKL_VERSION}.tar.gz
-rm -f RevoMath-${MKL_VERSION}.tar.gz
-cd RevoMath
-echo 3 | source RevoMath.sh; installMklLibraries
 
-cd /opt
-rm -rf RevoMath
+cd /opt/RevoMath
+tac /opt/RevoMath/RevoMath.sh | sed '/getOption/ {s//getOption --nolicense/; :loop; n; b loop}' | tac >> /opt/RevoMath/RevoMath_nolicense.sh
+chmod +x /opt/RevoMath/RevoMath_nolicense.sh
+echo 1 | /opt/RevoMath/RevoMath_nolicense.sh
+
+rm -f /opt/RevoMath-${MKL_VERSION}.tar.gz
+rm -rf /opt/RevoMath
 echo "MKL installed."
 
 #install deployrRserve
@@ -31,3 +34,4 @@ echo "deployrRserve installed."
 
 yum install -y make gcc gcc-gfortran which
 echo "prerequesties for deployr done."
+
