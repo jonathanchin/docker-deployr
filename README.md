@@ -3,21 +3,23 @@
 ## Run
 ```shell
 docker run -d \
--p 8000:8000 \
--p 8001:8001 \
--p 8003:8003 \
+-p ${expose.port}:8000 \
 -p 8006:8006 \
 -e EXPOSE_IP=${expose.ip} \
+-e EXPOSE_PORT=${expose.port} \
 whylu/docker-deployr
 ```
 
-${expose.ip} is host machine's public ip <br/>
-wait about 30 seconds, then go to http://${expose.ip}:8000/deployr <br/>
+${expose.ip} is host machine's public ip for web. <br/>
+${expose.port} is host machine's public port for web. <br/>
+port 8006 is fixed and must. <br/>
+wait about 30 seconds, then go to http://${expose.ip}:${expose.port}/deployr <br/>
 enjoy it! <br/>
+
 
 ##Change expose ip
 ```shell
-docker exec ${containername} /bin/bash -c "echo y | /opt/deployr/8.0.0/deployr/tools/setWebContext.sh -ip ${EXPOSE_IP} -disableauto"
+docker exec ${containername} /opt/setExposeIpPort.sh ${expose.ip} ${expose.port}
 docker restart ${containername}
 ```
 

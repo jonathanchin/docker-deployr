@@ -26,6 +26,7 @@ RUN chmod +x /tmp/install_deployr.sh \
     && source /tmp/install_deployr.sh
 ENV DEPLOYR_HOME=/opt/deployr/${DEPLOYR_VERSION}
 
+
 # EXPOSE PORTS
 # http://deployr.revolutionanalytics.com/documents/admin/install/#update-firewall
 #Tomcat default port
@@ -36,6 +37,11 @@ EXPOSE 8001
 EXPOSE 8006
 #MongoDB port
 EXPOSE 8003
+
+RUN usermod -a -G root apache
+
+ADD ./setExposeIpPort.sh /opt/setExposeIpPort.sh
+RUN chmod +x /opt/setExposeIpPort.sh
 
 ADD ./startDeployR.sh /opt/startDeployR.sh
 RUN chmod +x /opt/startDeployR.sh
